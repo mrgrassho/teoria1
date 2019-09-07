@@ -7,7 +7,7 @@ Se debe definir:
 - [ ] Sentencias
 - [ ] Lista_de_Sentencias
 
-- [ ] While
+- [ ] While/while in
 - [ ] If
 - [ ] Asignaciones
 - [ ]  Tipos de Datos:
