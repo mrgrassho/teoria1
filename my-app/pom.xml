@@ -30,9 +30,15 @@
     <artifactId>java-cup</artifactId>
     <version>11b</version>
 </dependency>
+<dependency>
+    <groupId>com.github.vbmacher</groupId>
+    <artifactId>java-cup-runtime</artifactId>
+    <version>11b</version>
+</dependency>
   </dependencies>
 
   <build>
+    <finalName>MainFlex</finalName>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
             <plugin>
