@@ -1,3 +1,4 @@
-e = "ddasioinede"
-
-1 and 23
+e="ddasioinede";
+aasds=23;
+a=dee + 23;
+a=true;
