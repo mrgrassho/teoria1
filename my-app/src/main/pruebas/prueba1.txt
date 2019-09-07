@@ -2,3 +2,4 @@ e="ddasioinede";
 aasds=23;
 a=dee + 23;
 a=true;
+IF (i>3) THEN a=true;

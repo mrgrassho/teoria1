@@ -30,10 +30,20 @@ Termino = {Termino}"*"{Factor}
 Termino = {Factor}
 Factor = {Constante}
 Factor = {Identificador}
-Asignacion = {Identificador}"="{Expresion}
+Asignacion = {Identificador}"="{Expresion}";"
+
+/* Funciones */
+Display = "DISPLAY" {String}
+Funcion = {Display}";"
+
+/* IF */
+If = "IF("{Condicion}")THEN"{Lista_de_Sentencias}ELSE{Lista_de_Sentencias}
+If = "IF("{Condicion}")THEN"{Lista_de_Sentencias}
+
 
 /* Definir bien Sentencia */
-Sentencia = {Asignacion} ";"
+Sentencia = {Asignacion}|{Funcion}
+Lista_de_Sentencias = {Sentencia}|({Sentencia}{LineTerminator})+
 
 %%
 
@@ -48,6 +58,7 @@ Sentencia = {Asignacion} ";"
   {Identificador}                { System.out.printf("\n>>> Identificador encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);}
 
   {Operador}                     { System.out.printf(">>> Operador encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);}
+  {If}                     { System.out.printf(">>> If encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);}
 
   /* whitespace */
   {WhiteSpace}                   { /* ignore */ }

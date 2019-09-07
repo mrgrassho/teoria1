@@ -13,7 +13,7 @@ Se debe definir:
 - [ ]  Tipos de Datos:
   - [ ] Enteros (16 bits)
   - [ ] Double (32 bits)
-  - [ ] String (30 caracteres de longitud máxima, limitado por comillas simples)
+  - [X] String (30 caracteres de longitud máxima, limitado por comillas simples)
 - [ ] Comentarios (“--/” y “/--“)
 - [ ] Salida. (DISPLAY “ewr”)
 - [ ] Variables.
@@ -43,6 +43,9 @@ WHILE (Variable IN [Lista de Expresiones]) DO
 ENDWHILE
 ```
 
+### Regex en jflex
+
+http://people.cs.aau.dk/~marius/sw/flex/Flex-Regular-Expressions.html
 
 ### Guia para correr el Lexer:
 
