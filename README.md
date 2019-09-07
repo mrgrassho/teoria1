@@ -46,13 +46,13 @@ ENDWHILE
 
 ### Guia para correr el Lexer:
 
-1. Ejecutar desde la terminal `mvn jflex:generate` o desde la vista GUI de jflex generar el archivo Lexer.java.
+1. Ejecutar desde la terminal `mvn jflex:generate` sobre el directorio `my-app/` o desde la vista GUI de jflex generar el archivo Lexer.java.
 
 2. Si usaste **maven**, copia el archivo a main/java:
 
-`cp src/my-app/target/generated-sources/jflex/Lexer.java src/my-app/main/java`
+`cp target/generated-sources/jflex/Lexer.java src/main/java/`
 
-3. Copialo en `main/java` y compilalo:
+3. Pararse en la carpeta `main/java` y compilalo:
 ```
 javac Lexer.java
 ```
@@ -61,5 +61,5 @@ javac Lexer.java
 
 - Pararse en la carpeta `main/java` y ejecutar el siguiente comando:
 ```
-java Lexer ../pruebas1.txt
+java Lexer ../pruebas/prueba1.txt
 ```
