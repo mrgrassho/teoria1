@@ -10,6 +10,14 @@ LineTerminator = \r|\n|\r\n
 InputCharacter = [^\r\n]
 WhiteSpace     = {LineTerminator} | [ \t\f]
 
+/* IF */
+If = "if("{Condicion}")then "{Lista_de_Sentencias}" else "{Lista_de_Sentencias}
+If = "if("{Condicion}")then "{Sentencia}
+
+/* WHILE */
+While= "while("{Condicion}")do begin "{Lista_de_Sentencias} " end"
+While= "while("{Condicion}")do "{Sentencia}
+
 /* Comienzan las definiciones de */
 
 String = \"[a-zA-Z0-9]{0,30}\"
@@ -36,14 +44,10 @@ Asignacion = {Identificador}"="{Expresion}";"
 Display = "DISPLAY" {String}
 Funcion = {Display}";"
 
-/* IF */
-If = "IF("{Condicion}")THEN"{Lista_de_Sentencias}ELSE{Lista_de_Sentencias}
-If = "IF("{Condicion}")THEN"{Lista_de_Sentencias}
-
 
 /* Definir bien Sentencia */
-Sentencia = {Asignacion}|{Funcion}
 Lista_de_Sentencias = {Sentencia}|({Sentencia}{LineTerminator})+
+Sentencia = {Asignacion}|{Funcion}
 
 %%
 
@@ -58,7 +62,8 @@ Lista_de_Sentencias = {Sentencia}|({Sentencia}{LineTerminator})+
   {Identificador}                { System.out.printf("\n>>> Identificador encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);}
 
   {Operador}                     { System.out.printf(">>> Operador encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);}
-  {If}                     { System.out.printf(">>> If encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);}
+ {If}                   	 { System.out.printf("\n>>> IF encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);}
+ {While}                   	 { System.out.printf("\n>>> WHILE encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);}
 
   /* whitespace */
   {WhiteSpace}                   { /* ignore */ }
