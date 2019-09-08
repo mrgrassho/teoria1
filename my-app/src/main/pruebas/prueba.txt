@@ -1,0 +1,48 @@
+</Prueba comentarios/>
+
+
+</Prueba DECVAR/>
+DECVAR 
+[a1,variableexcedida]:=[int,string] 
+[c1,d1]:=[float,int]
+[e1,f1]:=[string,int]
+[z1,k1]:=[string,string]
+ENDDEC       
+
+
+</Prueba asignacion/>
+
+</a1 = 33000;/> </Prueba Error entero mayor a 16bit/>
+</c1 = 1111111111111111111111111111111111111111111111111.11111111111111111111111111111111;/>    </Prueba Error real mayor a 32bit/>
+variableexcedida = "Hola Mundo";
+c1 = "Hola"; </ Prueba asignar el tipo de dato incorrecto (String a Float)/>
+
+</z1 = "Hola Mundo";/>
+f1 = 5 ;
+d1 = 5/2; </ Prueba asignar el tipo de dato incorrecto (Float a int)/>
+c1 = 7.5;
+z1 = 10; </ Prueba asignar el tipo de dato incorrecto (Número a String)/>
+
+</Prueba if, condicion y filter/>
+if ((100/4)==(5*5)) 
+{
+	a1 = 1;
+	c1 = filter (_>5,[a1*5,d1/2,3+2,7]) + 100;
+} 
+else 
+{
+	a1 = 1;
+	c1 = 2 * 3;
+};
+
+
+</Prueba while y condicion/>
+while ((a1)>=(c1)) 
+{
+	c1 = c1 + 1;
+};
+
+
+</Prueba print/>
+print ("Hola");
+print (b1);

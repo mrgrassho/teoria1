@@ -1,4 +1,7 @@
-while(i==aa)do begin
+while(i==aa){
 a=false;
 a=false;
-end
+}
+
+a = 6553;
+a = 65536213;

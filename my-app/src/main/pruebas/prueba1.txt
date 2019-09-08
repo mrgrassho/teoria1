@@ -1,8 +1,14 @@
 --/ Asignaciónes y Operaciones /--
-a="ddasioinede";
+a =  "ddasioinede";
+a =  "ddasiodddddddddedadadaedaeinede";
 aasds=23.3;
-a=dee+23;
+ajjjj=dee+23;
 a=  true;
+a= "false";
+b =a;
+
+a = 6553;
+a = 65536213;
 
 --/ Funciones - DISPLAY /--
 DISPLAY "asdasd";
@@ -15,8 +21,25 @@ DISPLAY ss;
   /--
 /--
 
-if(i==aa && i==aa)then a=true;
-while(i==aa && i==aa)do begin
+
+--/ Tipos de IFs /--
+
+if(i==aa)a=true;
+
+if(i==aa){a=true;else a=true;}
+
+if(i==aa) if(i==aa)a=true;
+
+if(i==aa)a=true;else  if(i==aa)a=true;
+
+if(i==aa) if(i==aa)a=true;
+
+if(i==aa) if(i==aa)a=true;
+
+if(i==a){a=true;}
+if(i==aa && i==aa){a=true;}
+while(i==a) a=2;
+while(i==aa && i==aa){
 a=false;
 a=false;
-end
+}
