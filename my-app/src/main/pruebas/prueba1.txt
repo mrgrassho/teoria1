@@ -1,6 +1,16 @@
-e="ddasioinede";
-aasds=23;
-a=dee + 23;
-a=true;
-if(i>3)then a=true;
-while(i=aa)do begin a=false; end
+--/ Asignaciónes y Operaciones /--
+a="ddasioinede";
+aasds=23.3;
+a=dee+23;
+a=  true;
+
+--/ Funciones - DISPLAY /--
+DISPLAY "asdasd";
+DISPLAY ss;
+
+--/ If /--
+if(i==aa && i==aa)then a=true;
+while(i==aa && i==aa)do begin
+a=false;
+a=false;
+end

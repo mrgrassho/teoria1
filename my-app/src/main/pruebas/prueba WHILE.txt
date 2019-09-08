@@ -1,1 +1,4 @@
-while(i=aa)do begin a=false end;
+while(i==aa)do begin
+a=false;
+a=false;
+end
