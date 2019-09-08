@@ -1,5 +1,8 @@
 import java.util.*;
-
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 %%
 
 %class Lexer
@@ -8,6 +11,34 @@ import java.util.*;
 %line
 %column
 %state COMMENTS_A, COMMENTS_B, IF, WHILE, DISPLAY
+%init{
+  try {
+    file = new File("../ts.txt");
+    bw = new BufferedWriter(new FileWriter(file));
+    bw.write("NOMBRE,TOKEN,TIPO,VALOR,LONG");
+    bw.newLine();
+    bw.flush();
+    simbolos = new ArrayList<>();
+  } catch (IOException e) {
+    e.printStackTrace();
+  }
+%init}
+
+%{
+  BufferedWriter  bw;
+  File file;
+  ArrayList<String> simbolos;
+
+  public void writeTable(String str) throws IOException{
+    if (!simbolos.contains(str.split(",")[0])) {
+      bw.write(str);
+      bw.newLine();
+      bw.flush();
+      simbolos.add(str.split(",")[0]);
+    }
+  }
+
+%}
 
 LineTerminator = \r|\n|\r\n
 InputCharacter = [^\r\n]
@@ -60,13 +91,28 @@ Funcion = {Display}";"
   "PROGRAM.SECTION"             { System.out.printf("\n>>> PROGRAM en linea %d, columna %d\n", yyline, yycolumn); }
   "ENDPROGRAM.SECTION"          { System.out.printf("\n>>> ENDPROGRAM en linea %d, columna %d\n", yyline, yycolumn); }
 
-  {String}                      { System.out.printf("\n>>> String encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);}
+  {String}                      {
+                                  System.out.printf("\n>>> String encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);
+                                  writeTable("_"+yytext()+",CTE_STR,,"+yytext()+","+yytext().length());
+                                }
   {Integer}                     {
                                   System.out.printf("\n>>> Integer encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);
+                                  writeTable("_"+yytext()+",CTE_INT,,"+yytext()+",");
                                 }
-  {Float}                       { System.out.printf("\n>>> Float encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);}
-  {Boolean}                     { System.out.printf("\n>>> Bool encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);}
-  {Identificador}               { System.out.printf("\n>>> Identificador encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);}
+  {Float}                       {
+                                  System.out.printf("\n>>> Float encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);
+                                  writeTable("_"+yytext()+",CTE_FLOAT,,"+yytext()+",");
+                                }
+  {Boolean}                     {
+                                  System.out.printf("\n>>> Bool encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);
+                                  writeTable("_"+yytext()+",CTE_BOOL,,"+yytext()+",");
+
+                                }
+  {Identificador}               {
+                                  System.out.printf("\n>>> Identificador encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);
+                                  writeTable("_"+yytext()+",ID,,"+yytext()+",");
+
+                                }
 
   "--/"                         { yybegin(COMMENTS_A); System.out.printf("\n>>> Empieza comentario A en linea %d, columna %d\n", yyline, yycolumn); }
 }
