@@ -102,9 +102,16 @@ Funcion = {Display}";"
                                     writeTable("_"+yytext()+",CTE_INT,,"+yytext()+",");
                                   }
                                 }
-  {Float}                       {
-                                  System.out.printf("\n>>> Float encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);
-                                  writeTable("_"+yytext()+",CTE_FLOAT,,"+yytext()+",");
+  {Float}                       { /* real de 32 bits : 16 parte entera y 16 parte decimal*/
+									int indexDecimal = yytext().indexOf(".");
+								    String entero = yytext().substring(0, indexDecimal);
+								    String decimal = yytext().substring(indexDecimal+1,yytext().length());
+								    	
+								  if ( (Integer.valueOf(entero) > -32768) && (Integer.valueOf(entero) < 32768) 
+								       && (Integer.valueOf(decimal) > -32768) && (Integer.valueOf(decimal) < 32768) ) {
+                                  	System.out.printf("\n>>> Float encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);
+                                  	writeTable("_"+yytext()+",CTE_FLOAT,,"+yytext()+",");
+                                  }
                                 }
   {Boolean}                     {
                                   System.out.printf("\n>>> Bool encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);

@@ -38,8 +38,19 @@ if(i==aa) if(i==aa)a=true;
 
 if(i==a){a=true;}
 if(i==aa && i==aa){a=true;}
+
+
+--/ Tipos de WHiles /--
+
 while(i==a) a=2;
 while(i==aa && i==aa){
 a=false;
 a=false;
 }
+
+
+--/ Enteros y Reales /--
+337688 --/ no es entero de 16 bits /--
+3276
+2222.327688 --/ no es real de 32 bits /--
+2222.33
