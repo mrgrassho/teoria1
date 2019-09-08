@@ -3,6 +3,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.Integer;
 %%
 
 %class Lexer
@@ -10,7 +11,7 @@ import java.io.IOException;
 %unicode
 %line
 %column
-%state COMMENTS_A, COMMENTS_B, IF, WHILE, DISPLAY
+%state COMMENTS_A, COMMENTS_B, DISPLAY
 %init{
   try {
     file = new File("../ts.txt");
@@ -47,7 +48,7 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
 /* Comienzan las definiciones de */
 
 String = \"([a-zA-Z0-9\t\f\.\!\¡ñÑ]{0,30})\"
-Integer = [0|[1-9][0-9]]
+Integer = [1-9][0-9]* | 0
 Float = {Integer}\.[0-9]*
 Boolean = "true"|"false"
 Constante = {String}|{Integer}|{Float}|{Boolean}
@@ -96,8 +97,10 @@ Funcion = {Display}";"
                                   writeTable("_"+yytext()+",CTE_STR,,"+yytext()+","+yytext().length());
                                 }
   {Integer}                     {
-                                  System.out.printf("\n>>> Integer encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);
-                                  writeTable("_"+yytext()+",CTE_INT,,"+yytext()+",");
+                                  if ((Integer.valueOf(yytext()) > -32768) && (Integer.valueOf(yytext()) < 32768)) {
+                                    System.out.printf("\n>>> Integer encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);
+                                    writeTable("_"+yytext()+",CTE_INT,,"+yytext()+",");
+                                  }
                                 }
   {Float}                       {
                                   System.out.printf("\n>>> Float encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);
