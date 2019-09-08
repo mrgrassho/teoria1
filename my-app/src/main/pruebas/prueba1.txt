@@ -8,7 +8,13 @@ a=  true;
 DISPLAY "asdasd";
 DISPLAY ss;
 
---/ If /--
+--/
+  Esto es un comentario A
+  --/
+    Esto es un comentario B
+  /--
+/--
+
 if(i==aa && i==aa)then a=true;
 while(i==aa && i==aa)do begin
 a=false;

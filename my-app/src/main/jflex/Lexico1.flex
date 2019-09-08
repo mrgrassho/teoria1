@@ -5,6 +5,7 @@
 %unicode
 %line
 %column
+%state COMMENTS_A, COMMENTS_B
 
 LineTerminator = \r|\n|\r\n
 InputCharacter = [^\r\n]
@@ -51,30 +52,27 @@ Funcion = {Display}";"
 Lista_de_Sentencias = {Sentencia}|({Sentencia}{LineTerminator}*)+
 Sentencia = {Asignacion}|{Funcion}
 
-/* Comentarios */
-CommentarioA = "--/"(.|{LineTerminator})*"/--"
-CommentarioB = "--/".*{LineTerminator}*{CommentarioA}.*{LineTerminator}*"/--"
-
 %%
-<YYINITIAL> {
-  {If}                       	   { System.out.printf("\n>>> IF encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);}
-  {While}                   	   { System.out.printf("\n>>> WHILE encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);}
-
-}
 
 <YYINITIAL> {
   /* Constantes*/
-
+  {AsignacionSimbolo}            { System.out.printf("\n>>> Simbolo Asignacion encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);}
   {Sentencia}                    { System.out.printf("\n>>> Sentencia encontrada: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);}
   {String}                       { System.out.printf("\n>>> String encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);}
   {Integer}                      { System.out.printf("\n>>> Integer encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);}
   {Double}                       { System.out.printf("\n>>> Double encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);}
   {Boolean}                      { System.out.printf("\n>>> Bool encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);}
   {Identificador}                { System.out.printf("\n>>> Identificador encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);}
-  {AsignacionSimbolo}            { System.out.printf("\n>>> Simbolo Asignacion encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);}
+
   {Operador}                     { System.out.printf("\n>>> Operador encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);}
-  {CommentarioB}                 { System.out.printf("\n>>> Commentario encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);}
 
   /* whitespace */
   {WhiteSpace}                   { /* ignore */ }
+
+  "--/" { yybegin(COMMENTS_A); }
 }
+
+<COMMENTS_A> {LineTerminator} { }
+<COMMENTS_A> "--/" { yybegin(COMMENTS_B); }
+<COMMENTS_A> "/--" { yybegin(YYINITIAL); }
+<COMMENTS_B> "/--" { yybegin(COMMENTS_A); }
