@@ -2,7 +2,7 @@
 
 ### TODO:
 
-Se debe definir:
+Se debe definir en JAVA CUP:
 
 - [ ] Sentencias
 - [ ] Lista_de_Sentencias

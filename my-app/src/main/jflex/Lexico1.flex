@@ -80,6 +80,12 @@ Funcion = {Display}";"
   "}"                           { System.out.printf("\n>>> Simbolo Llaves Cierra encontrado en linea %d, columna %d\n", yyline, yycolumn);}
   "&&"                          { System.out.printf("\n>>> Simbolo AND: [%s] encontrado en linea %d, columna %d\n",yytext(), yyline, yycolumn);}
   "||"                          { System.out.printf("\n>>> Simbolo OR: [%s] encontrado en linea %d, columna %d\n",yytext() , yyline, yycolumn);}
+  "+"                           { System.out.printf("\n>>> Simbolo Suma: [%s] encontrado en linea %d, columna %d\n",yytext() , yyline, yycolumn);}
+  "-"                           { System.out.printf("\n>>> Simbolo Resta: [%s] encontrado en linea %d, columna %d\n",yytext() , yyline, yycolumn);}
+  "/"                           { System.out.printf("\n>>> Simbolo Division: [%s] encontrado en linea %d, columna %d\n",yytext() , yyline, yycolumn);}
+  "*"                           { System.out.printf("\n>>> Simbolo Multiplicacion: [%s] encontrado en linea %d, columna %d\n",yytext() , yyline, yycolumn);}
+  "%"                           { System.out.printf("\n>>> Simbolo Modulo: [%s] encontrado en linea %d, columna %d\n",yytext() , yyline, yycolumn);}
+  "?"                           { System.out.printf("\n>>> Simbolo IF Unario: [%s] encontrado en linea %d, columna %d\n",yytext() , yyline, yycolumn);}
   "DISPLAY"                     { System.out.printf("\n>>> Funcion encontrada en linea %d, columna %d\n", yyline, yycolumn);yybegin(DISPLAY);}
   "STRING"                      { System.out.printf("\n>>> Funcion encontrada en linea %d, columna %d\n", yyline, yycolumn);yybegin(DISPLAY);}
   "INT"                         { System.out.printf("\n>>> Funcion encontrada en linea %d, columna %d\n", yyline, yycolumn);yybegin(DISPLAY);}
@@ -106,8 +112,8 @@ Funcion = {Display}";"
 									int indexDecimal = yytext().indexOf(".");
 								    String entero = yytext().substring(0, indexDecimal);
 								    String decimal = yytext().substring(indexDecimal+1,yytext().length());
-								    	
-								  if ( (Integer.valueOf(entero) > -32768) && (Integer.valueOf(entero) < 32768) 
+
+								  if ( (Integer.valueOf(entero) > -32768) && (Integer.valueOf(entero) < 32768)
 								       && (Integer.valueOf(decimal) > -32768) && (Integer.valueOf(decimal) < 32768) ) {
                                   	System.out.printf("\n>>> Float encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);
                                   	writeTable("_"+yytext()+",CTE_FLOAT,,"+yytext()+",");
@@ -120,7 +126,7 @@ Funcion = {Display}";"
                                 }
   {Identificador}               {
                                   System.out.printf("\n>>> Identificador encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);
-                                  writeTable("_"+yytext()+",ID,,"+yytext()+",");
+                                  writeTable(+yytext()+",ID,,,");
 
                                 }
 
@@ -135,3 +141,5 @@ Funcion = {Display}";"
 <DISPLAY> {
   {Funcion}         { System.out.printf("\n>>> DISPLAY encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);yybegin(YYINITIAL);}
 }
+
+[^] { throw new Error("Caracter no permitido: <" + yytext() + "> en la linea " + yyline); }
