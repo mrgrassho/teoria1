@@ -1,0 +1,49 @@
+JFLEX=
+
+los comentarios no tienen que generar tokens, cuando se encuentra un comentario se ignora
+%% especificar opciones, %cup,
+especificaciones igual
+en ynitial cambio syso por return symbol, sym es la clase por defecto, lo de despues es el nombre que se cambia, 
+corchetes y parentesis son un token
+espacios no retorna nada
+comentario dentro de comentario revisar.
+
+JAVA CUP=
+
+
+primer parte= importar
+java.cup.runtime;
+parser code "{:"" asi se separan y aca van los metodos como por ejemplo error de sintaxis :}, ES DEICR USO {: TEXTO}
+
+axion code{: codigo de java propio si hay que declarar variables}.
+dentro de los terminales se definen todos los simbolos
+tambien los no terminales, primero genero la gramtica y despues los defino, asi se cuales necesito
+
+start with pgm; como empieza la sintaxis, java va desde lo menos especifico a lo mas especifico, es decir cuando llega al start compila
+
+definicion de reglas de gramaticas= expresion,termino, factor, sentnecia de asignacion(id ASIGN expresion),sentencia,sentenciaasignacion,sentenciawhile,sentenciaif,
+
+regla ::= regla gramatica :s(esto sirve para hacer un print)
+IMPORTANTE= hay que hacer un print de cada regla con numeros de regla,
+
+:s se queda con el token
+:d se queda con el lexema(o la variable definida).
+RESULT= SE QUEDA CON LA GRAMTICA DEL LADO DERECHA PARA GENERAR EL ARBOL DE SINTAIS AUNQUE NO LO VAMOS A USAR
+
+COMANDO EN CMD PARA EJECUTAR EL JAVACUP
+
+java  -jar  java-cup-11b.jar  ejemplo.cup
+genera parser.java y sim.java(clase se simbolo)
+
+
+parser.java en el main=
+AGREGA ESTO
+parser sintactico - new parser(lexer) ;
+sintactico.parse();  
+
+EJ DE REGLA GRAMATICA
+factor ::= ID:d {syso([regla 13] variable");:}
+	|CONST_INT:cte {:syso("[regla 14] cosntante"); :}
+
+
+
