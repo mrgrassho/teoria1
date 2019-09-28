@@ -56,22 +56,32 @@ a1= ?( alpha > 300, a1+1, a1+2)
 
 http://people.cs.aau.dk/~marius/sw/flex/Flex-Regular-Expressions.html
 
-### Guia para correr el Lexer:
+### Nueva Guia para correr el proyecto:
 
 1. Ejecutar desde la terminal `mvn jflex:generate` sobre el directorio `my-app/` o desde la vista GUI de jflex generar el archivo Lexer.java.
 
 2. Si usaste **maven**, copia el archivo a main/java:
 
-`cp target/generated-sources/jflex/Lexer.java src/main/java/`
+`cp target/generated-sources/jflex/compile/Lexer.java src/main/cup/`
 
-3. Pararse en la carpeta `main/java` y compilalo:
+3. Pararse en la carpeta `main/cup` y compilalo:
 ```
 javac Lexer.java
 ```
 
-4. Para correr las pruebas realizar lo siguiente:
-
-- Pararse en la carpeta `main/java` y ejecutar el siguiente comando:
+4. Ahora vamos a ejecutar el archivo `Sintactico.cup`:
 ```
-java Lexer ../pruebas/prueba1.txt
+java -jar java-cup-11b.jar -expect 10 Sintactico.cup
+```
+
+**NOTA:** EL archivo contiene warnings por eso es necesario pasarle el arg. `-expect`
+
+5. Ahora hay que compilar el Main:
+```
+javac -cp java-cup-11b.jar Lexer.java parser.java sym.java Main.java
+```
+
+6. Ejecutar el Main:
+```
+javac parser.java Main.java
 ```

@@ -331,19 +331,6 @@ public class parser extends java_cup.runtime.lr_parser {
 	public String resultado="";
 	public String lastType;
 
-	public static void main(String[] arg){
-		/* Crea un objeto parser */
-		parser parserObj = new parser();
-		/* Asigna el Scanner */
-		Scanner miAnalizadorLexico = new Lexer(new InputStreamReader(System.in));
-		parserObj.setScanner(miAnalizadorLexico);
-		try {
-			parserObj.parse();
-		} catch(Exception x){
-			System.out.println("Error fatal.");
-		}
-	}
-
 
 /** Cup generated class to encapsulate user supplied action code.*/
 @SuppressWarnings({"rawtypes", "unchecked", "unused"})

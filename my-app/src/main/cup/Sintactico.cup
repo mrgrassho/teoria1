@@ -15,19 +15,6 @@ parser code
 	public ArrayList<String> simbolos;
 	public String resultado="";
 	public String lastType;
-
-	public static void main(String[] arg){
-		/* Crea un objeto parser */
-		parser parserObj = new parser();
-		/* Asigna el Scanner */
-		Scanner miAnalizadorLexico = new Lexer(new InputStreamReader(System.in));
-		parserObj.setScanner(miAnalizadorLexico);
-		try {
-			parserObj.parse();
-		} catch(Exception x){
-			System.out.println("Error fatal.");
-		}
-	}
 :};
 
 action code
