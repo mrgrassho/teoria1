@@ -72,6 +72,7 @@ Funcion = {Display}";"
   /* Palabras Reservadas*/
   "="                           { System.out.printf("\n>>> Simbolo Asignacion encontrado en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.ASIGNACION, yychar, yyline);}
   ";"                           { System.out.printf("\n>>> Simbolo Punto y Coma encontrado en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.PUNTO_Y_COMA, yychar, yyline);}
+  ","                           { System.out.printf("\n>>> Simbolo coma encontrado en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.COMA, yychar, yyline);}
   "=="                          { System.out.printf("\n>>> Simbolo Igual encontrado en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.IGUAL, yychar, yyline);}
   "!="                          { System.out.printf("\n>>> Simbolo Distinto encontrado en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.DISTINTO, yychar, yyline);}
   ">"                           { System.out.printf("\n>>> Simbolo Mayor encontrado en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.MAYOR, yychar, yyline);}
@@ -90,13 +91,15 @@ Funcion = {Display}";"
   "*"                           { System.out.printf("\n>>> Simbolo Multiplicacion: [%s] encontrado en linea %d, columna %d\n",yytext() , yyline, yycolumn);return new Symbol(sym.MULTIPLICAION, yychar, yyline);}
   "%"                           { System.out.printf("\n>>> Simbolo Modulo: [%s] encontrado en linea %d, columna %d\n",yytext() , yyline, yycolumn);return new Symbol(sym.MODULO, yychar, yyline);}
   "?"                           { System.out.printf("\n>>> Simbolo IF Unario: [%s] encontrado en linea %d, columna %d\n",yytext() , yyline, yycolumn);return new Symbol(sym.IF_UNARIO, yychar, yyline);}
-  "DISPLAY"                     { System.out.printf("\n>>> Funcion encontrada en linea %d, columna %d\n", yyline, yycolumn);yybegin(DISPLAY);return new Symbol(sym.DISPLAY, yychar, yyline);}
-  "STRING"                      { System.out.printf("\n>>> Funcion encontrada en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.STRING, yychar, yyline);}
-  "INT"                         { System.out.printf("\n>>> Funcion encontrada en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.INT, yychar, yyline);}
-  "FLOAT"                       { System.out.printf("\n>>> Funcion encontrada en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.FLOAT, yychar, yyline);}
+  "DISPLAY"                     { System.out.printf("\n>>> Funcion encontrada en linea %d, columna %d\n", yyline, yycolumn);yybegin(DISPLAY);return new Symbol(sym.DISPLAY_FUNCTION, yychar, yyline);}
+  "STRING"                      { System.out.printf("\n>>> Funcion consta en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.WORD_STRING, yychar, yyline);}
+  "INT"                         { System.out.printf("\n>>> Funcion encontrada en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.WORD_INT, yychar, yyline);}
+  "FLOAT"                       { System.out.printf("\n>>> Funcion encontrada en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.WORD_FLOAT, yychar, yyline);}
+  "BOOL"                        { System.out.printf("\n>>> Funcion encontrada en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.WORD_BOOL, yychar, yyline);}
 
   "while"                       { System.out.printf("\n>>> while en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.WHILE, yychar, yyline);}
   "if"                          { System.out.printf("\n>>> if en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.IF, yychar, yyline);}
+  "else"                        { System.out.printf("\n>>> else en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.ELSE, yychar, yyline);}
   "DECLARE.SECTION"             { System.out.printf("\n>>> DECLARE en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.DECLARE_SECTION, yychar, yyline);}
   "ENDDECLARE.SECTION"          { System.out.printf("\n>>> ENDDECLARE en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.ENDDECLARE_SECTION, yychar, yyline);}
   "PROGRAM.SECTION"             { System.out.printf("\n>>> PROGRAM en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.PROGRAM_SECTION, yychar, yyline);}
