@@ -1,3 +1,5 @@
+package compiler;
+
 import java.util.*;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -9,7 +11,6 @@ import java_cup.runtime.Symbol;
 %%
 
 %class Lexer
-%standalone
 %cupsym sym
 %cup
 %unicode
@@ -71,6 +72,7 @@ Funcion = {Display}";"
 <YYINITIAL> {
   /* Palabras Reservadas*/
   "="                           { System.out.printf("\n>>> Simbolo Asignacion encontrado en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.ASIGNACION, yychar, yyline);}
+  ":"                           { System.out.printf("\n>>> Simbolo Dos Puntos encontrado en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.DOS_PUNTOS, yychar, yyline);}
   ";"                           { System.out.printf("\n>>> Simbolo Punto y Coma encontrado en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.PUNTO_Y_COMA, yychar, yyline);}
   ","                           { System.out.printf("\n>>> Simbolo coma encontrado en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.COMA, yychar, yyline);}
   "=="                          { System.out.printf("\n>>> Simbolo Igual encontrado en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.IGUAL, yychar, yyline);}
@@ -82,7 +84,7 @@ Funcion = {Display}";"
   "("                           { System.out.printf("\n>>> Simbolo Parentesis Abre encontrado en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.PARENTESIS_ABRE, yychar, yyline);}
   ")"                           { System.out.printf("\n>>> Simbolo Parentesis Cierra encontrado en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.PARENTESIS_CIERRA, yychar, yyline);}
   "{"                           { System.out.printf("\n>>> Simbolo Llaves Abre encontrado en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.LLAVES_ABRE, yychar, yyline);}
-  "}"                           { System.out.printf("\n>>> Simbolo Llaves Cierra encontrado en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.LLAVE_CIERRA, yychar, yyline);}
+  "}"                           { System.out.printf("\n>>> Simbolo Llaves Cierra encontrado en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.LLAVES_CIERRA, yychar, yyline);}
   "&&"                          { System.out.printf("\n>>> Simbolo AND: [%s] encontrado en linea %d, columna %d\n",yytext(), yyline, yycolumn); return new Symbol(sym.AND, yychar, yyline);}
   "||"                          { System.out.printf("\n>>> Simbolo OR: [%s] encontrado en linea %d, columna %d\n",yytext() , yyline, yycolumn); return new Symbol(sym.OR, yychar, yyline);}
   "+"                           { System.out.printf("\n>>> Simbolo Suma: [%s] encontrado en linea %d, columna %d\n",yytext() , yyline, yycolumn);return new Symbol(sym.SUMA, yychar, yyline);}
@@ -92,10 +94,10 @@ Funcion = {Display}";"
   "%"                           { System.out.printf("\n>>> Simbolo Modulo: [%s] encontrado en linea %d, columna %d\n",yytext() , yyline, yycolumn);return new Symbol(sym.MODULO, yychar, yyline);}
   "?"                           { System.out.printf("\n>>> Simbolo IF Unario: [%s] encontrado en linea %d, columna %d\n",yytext() , yyline, yycolumn);return new Symbol(sym.IF_UNARIO, yychar, yyline);}
   "DISPLAY"                     { System.out.printf("\n>>> Funcion encontrada en linea %d, columna %d\n", yyline, yycolumn);yybegin(DISPLAY);return new Symbol(sym.DISPLAY_FUNCTION, yychar, yyline);}
-  "STRING"                      { System.out.printf("\n>>> Funcion consta en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.WORD_STRING, yychar, yyline);}
-  "INT"                         { System.out.printf("\n>>> Funcion encontrada en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.WORD_INT, yychar, yyline);}
-  "FLOAT"                       { System.out.printf("\n>>> Funcion encontrada en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.WORD_FLOAT, yychar, yyline);}
-  "BOOL"                        { System.out.printf("\n>>> Funcion encontrada en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.WORD_BOOL, yychar, yyline);}
+  "STRING"                      { System.out.printf("\n>>> Funcion consta en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.TYPE_STRING, yychar, yyline);}
+  "INT"                         { System.out.printf("\n>>> Funcion encontrada en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.TYPE_INTEGER, yychar, yyline);}
+  "FLOAT"                       { System.out.printf("\n>>> Funcion encontrada en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.TYPE_FLOAT, yychar, yyline);}
+  "BOOL"                        { System.out.printf("\n>>> Funcion encontrada en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.TYPE_BOOL, yychar, yyline);}
 
   "while"                       { System.out.printf("\n>>> while en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.WHILE, yychar, yyline);}
   "if"                          { System.out.printf("\n>>> if en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.IF, yychar, yyline);}
@@ -136,7 +138,6 @@ Funcion = {Display}";"
                                 }
   {Identificador}               {
                                   System.out.printf("\n>>> Identificador encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);
-                                  writeTable(+yytext()+",ID,,,");
                                   return new Symbol(sym.ID, yychar, yyline);
                                 }
 
