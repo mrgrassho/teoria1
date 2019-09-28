@@ -62,7 +62,9 @@ http://people.cs.aau.dk/~marius/sw/flex/Flex-Regular-Expressions.html
 
 2. Si usaste **maven**, copia el archivo a main/java:
 
-`cp target/generated-sources/jflex/compile/Lexer.java src/main/cup/`
+`cp target/generated-sources/jflex/compiler/Lexer.java src/main/cup/`
+
+*1 y 2 en la misma linea* -> `mvn jflex:generate && cp target/generated-sources/jflex/compiler/Lexer.java src/main/cup/``
 
 3. Pararse en la carpeta `main/cup` y compilalo:
 ```
