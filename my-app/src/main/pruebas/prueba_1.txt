@@ -1,0 +1,35 @@
+--/ Prueba de Comentario /--
+
+DECLARE.SECTION
+  --/ Declaro variables /--
+  INT : a, b , c; --/ Entero /--
+  FLOAT : d, e; --/ Float /--
+  STRING : f, g, h, i; --/ String /--
+  BOOL : o, p; --/ Boolean /--
+ENDDECLARE.SECTION
+
+PROGRAM.SECTION
+
+--/ Probamos asignaciones de variables /--
+a = 12;
+b = "HolaMundo";
+o = "PEPE";
+
+--/ Probamos IF /--
+
+if(i==aa)a=true;
+
+if(i==aa){a=true;else a=true;}
+
+if(i==aa) if(i==aa)a=true;
+
+if(i==aa)a=true;else  if(i==aa)a=true;
+
+if(i==aa) if(i==aa)a=true;
+
+if(i==aa) if(i==aa)a=true;
+
+if(i==a){a=true;}
+if(i==aa && i==aa){a=true;}
+
+ENDPROGRAM.SECTION

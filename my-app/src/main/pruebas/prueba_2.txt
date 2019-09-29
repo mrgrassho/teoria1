@@ -1,4 +1,19 @@
---/ Asignaciónes y Operaciones /--
+--/ ` `-/-
+  -/-
+    TESTINGGG -/-
+  -/-
+  -/-     -/-
+-/- -/-  /--
+
+DECLARE.SECTION
+  INT : a, b , c;
+  FLOAT : d, e;
+  STRING : f, g, h, i;
+  BOOL : o, p;
+ENDDECLARE.SECTION
+
+PROGRAM.SECTION
+
 asas = 12;
 a = "ddasioinede";
 b = "ddasiodddddddddedadadaedaeinede";
@@ -49,9 +64,10 @@ a=false;
 a=false;
 }
 
-
 --/ Enteros y Reales /--
 337688 --/ no es entero de 16 bits /--
 3276
 2222.327688 --/ no es real de 32 bits /--
 2222.33
+
+ENDPROGRAM.SECTION

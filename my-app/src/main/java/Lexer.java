@@ -544,6 +544,7 @@ class Lexer implements java_cup.runtime.Scanner {
 
   public void writeTable(String str) throws IOException{
     if (!simbolos.contains(str.split(",")[0])) {
+
       bw.write(str);
       bw.newLine();
       bw.flush();
@@ -561,10 +562,7 @@ class Lexer implements java_cup.runtime.Scanner {
   Lexer(java.io.Reader in) {
     try {
     file = new File("../ts.txt");
-    bw = new BufferedWriter(new FileWriter(file));
-    bw.write("NOMBRE,TOKEN,TIPO,VALOR,LONG");
-    bw.newLine();
-    bw.flush();
+    bw = new BufferedWriter(new FileWriter(file, true));
     simbolos = new ArrayList<>();
   } catch (IOException e) {
     e.printStackTrace();
@@ -975,14 +973,14 @@ class Lexer implements java_cup.runtime.Scanner {
             { if ((Integer.valueOf(yytext()) > -32768) && (Integer.valueOf(yytext()) < 32768)) {
                                     System.out.printf("\n>>> Integer encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);
                                     writeTable("_"+yytext()+",CTE_INT,,"+yytext()+",");
-                                    return new Symbol(sym.CONST_INTEGER, yychar, yyline);
+                                    return new Symbol(sym.CONST_INTEGER, yychar, yyline, new String(yytext()));
                                   }
             } 
             // fall through
           case 46: break;
           case 7: 
             { System.out.printf("\n>>> Identificador encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);
-                                  return new Symbol(sym.ID, yychar, yyline);
+                                  return new Symbol(sym.ID, yychar, yyline, new String(yytext()));
             } 
             // fall through
           case 47: break;
@@ -1044,7 +1042,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 19: 
             { System.out.printf("\n>>> String encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);
                                   writeTable("_"+yytext()+",CTE_STR,,"+yytext()+","+yytext().length());
-                                  return new Symbol(sym.CONST_STRING, yychar, yyline);
+                                  return new Symbol(sym.CONST_STRING, yychar, yyline, new String(yytext()));
             } 
             // fall through
           case 59: break;
@@ -1058,7 +1056,7 @@ class Lexer implements java_cup.runtime.Scanner {
                 								       && (Integer.valueOf(decimal) > -32768) && (Integer.valueOf(decimal) < 32768) ) {
                                           System.out.printf("\n>>> Float encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);
                                           writeTable("_"+yytext()+",CTE_FLOAT,,"+yytext()+",");
-                                          return new Symbol(sym.CONST_FLOAT, yychar, yyline);
+                                          return new Symbol(sym.CONST_FLOAT, yychar, yyline, new String(yytext()));
                                   }
             } 
             // fall through
@@ -1111,7 +1109,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 30: 
             { System.out.printf("\n>>> Bool encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);
                                   writeTable("_"+yytext()+",CTE_BOOL,,"+yytext()+",");
-                                  return new Symbol(sym.CONST_BOOL, yychar, yyline);
+                                  return new Symbol(sym.CONST_BOOL, yychar, yyline, new String(yytext()));
             } 
             // fall through
           case 70: break;

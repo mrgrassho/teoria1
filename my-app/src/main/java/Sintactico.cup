@@ -12,8 +12,15 @@ parser code
 	public BufferedWriter  bw;
 	public File file;
 	public ArrayList<String> simbolos;
+	public ArrayList<String> elements = new ArrayList();
 	public String resultado="";
 	public String lastType;
+
+	/**Metodo al que se llama automaticamente ante algun error sintactico.*/
+	public void syntax_error(Symbol s){
+			System.out.println("Error en la linea " + (s.right+1) + " columna " + s.left + ". "
+					+ s + " no reconocido. valor " + s.value );
+	}
 :};
 
 action code
@@ -51,7 +58,7 @@ non terminal SENTENCIA_ASSIGN,SENTENCIA_IF,SENTENCIA_WHILE,SENTENCIA_DISPLAY, CO
 non terminal LISTA_DECLARE,DECLARACION,LISTA_IDS;
 non terminal EXPRESION,TERMINO,FACTOR;
 
-PROGRAM ::= PROGRAM_SECTION DECLARE_SC:dv LISTA_SENTENCIAS:ls ENDPROGRAM_SECTION
+PROGRAM ::= DECLARE_SC:dv PROGRAM_SECTION LISTA_SENTENCIAS:ls ENDPROGRAM_SECTION
 {:
   System.out.println("Program - Regla 0");
 :};
@@ -91,14 +98,14 @@ DECLARE_SC ::= DECLARE_SECTION LISTA_DECLARE:l ENDDECLARE_SECTION {:System.out.p
 LISTA_DECLARE ::= LISTA_DECLARE:ls DECLARACION:s {:System.out.println("Sentencias - Regla 1"); :}
                 | DECLARACION:s {:System.out.println("Sentencias - Regla 2"); :};
 
-DECLARACION ::= TYPE_STRING:tipo DOS_PUNTOS LISTA_IDS PUNTO_Y_COMA {: lastType = (String)tipo; :}
-							| TYPE_INTEGER:tipo DOS_PUNTOS LISTA_IDS PUNTO_Y_COMA    {: lastType = (String)tipo; :}
-							| TYPE_FLOAT:tipo DOS_PUNTOS LISTA_IDS PUNTO_Y_COMA  {: lastType = (String)tipo; :}
-							| TYPE_BOOL:tipo DOS_PUNTOS LISTA_IDS PUNTO_Y_COMA   {: lastType = (String)tipo; :};
+DECLARACION ::= TYPE_STRING:tipo DOS_PUNTOS LISTA_IDS PUNTO_Y_COMA {: lastType = "String"; for (String e : elements) { writeTable(e+",ID,"+lastType+",,"); } elements = new ArrayList(); :}
+							| TYPE_INTEGER:tipo DOS_PUNTOS LISTA_IDS PUNTO_Y_COMA{: lastType = "Integer"; for (String e : elements) { writeTable(e+",ID,"+lastType+",,"); } elements = new ArrayList(); :}
+							| TYPE_FLOAT:tipo DOS_PUNTOS LISTA_IDS PUNTO_Y_COMA  {: lastType = "Float"; for (String e : elements) { writeTable(e+",ID,"+lastType+",,"); } elements = new ArrayList(); :}
+							| TYPE_BOOL:tipo DOS_PUNTOS LISTA_IDS PUNTO_Y_COMA   {: lastType = "Bool"; for (String e : elements) { writeTable(e+",ID,"+lastType+",,"); } elements = new ArrayList(); :};
 
 
-LISTA_IDS ::= LISTA_IDS COMA ID:id {: writeTable(id+",ID,"+lastType+",,"); :}
-						| ID:id {: writeTable(id+",ID,"+lastType+",,"); :};
+LISTA_IDS ::= LISTA_IDS COMA ID:id {: elements.add((String)id); System.out.println("Lista ID - Regla XX"); :}
+						| ID:id {: elements.add((String)id); System.out.println("Lista ID - Regla XX"); :};
 
 CONDICION ::= PARENTESIS_ABRE CONDICION OR CONDICION PARENTESIS_CIERRA 	{:System.out.println("Condicion mayor Regla 27"); :}
 						| PARENTESIS_ABRE CONDICION AND CONDICION PARENTESIS_CIERRA 		{:System.out.println("Condicion mayor Regla 27"); :}

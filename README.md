@@ -13,6 +13,9 @@ En el siguiente repositorio se desarrollan los TPs de la materia Teoria de la Co
 Se debe definir en JAVA CUP:
 
 - [X] Tabla de simbolos con el tipo de Dato para los Identificadores declarados.
+- [ ] **CORREGIR numeracion de REGLAS**
+- [ ] **Revisar lineas comentadas en JAVA CUP**
+- [ ] **Hacer que JAVA CUP chequee los ids declaradas y te alerte si el valor asignado NO coincide con su tipo.**
 - [X] Sentencias
 - [X] Lista_de_Sentencias
 
@@ -28,7 +31,7 @@ Se debe definir en JAVA CUP:
 - [X] Variables.
 - [X] Condicion
   - [X] Operadores de condición (<, >, =<, =>, ==, and, or)
-- [ ] **DECLARACIONES de variables**
+- [X] **DECLARACIONES de variables**
 Todas las variables deberán ser declaradas dentro de un bloque especial para ese fin, delimitado por las palabras reservadas DECLARE.SECTION y ENDDECLARE.SECTION, siguiendo el siguiente formato:
 ```
 DECLARE.SECTION
@@ -85,3 +88,7 @@ javac -cp java-cup-11b.jar sym.java parser.java Lexer.java Main.java
 ```
 java -cp java-cup-11b-runtime.jar Main <nombre_archivo_pruebas>
 ```
+
+ó
+
+6. Abrir el proyecto en Eclipse y ejectuar el Main. Agregar parametro de archivo de pruebas.
