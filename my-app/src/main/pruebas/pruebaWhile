@@ -1,0 +1,27 @@
+--/Declaracion de variables/--
+DECLARE.SECTION
+	
+	  INT : a, b , c; --/ Entero /--
+	  FLOAT : d, e; --/ Float /--
+	  STRING : j, g, h, i; --/ String /--
+	  BOOL : o, p; --/ Boolean /--
+	ENDDECLARE.SECTION
+--/ Comienzo de Programa /--
+PROGRAM
+DISPLAY "Hola mundo!";
+contador = 0;
+actual = 9999;
+	suma = 2;
+	WHILE (suma < 10) {
+		DISPLAY "suma < 10";
+		suma = suma + 1;
+	}
+	contador = contador+1;
+	WHILE (contador <= 5) {
+		contador= contador + 1;
+		DISPLAY "Contadorx5";
+	}
+	actual = (contador/0.342) + (contador*contador);
+	
+	DISPLAY "Fin de programa"; --/ Salida de fin de programa /--
+ENDPROGRAM
