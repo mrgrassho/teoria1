@@ -13,9 +13,9 @@ En el siguiente repositorio se desarrollan los TPs de la materia Teoria de la Co
 Se debe definir en JAVA CUP:
 
 - [X] Tabla de simbolos con el tipo de Dato para los Identificadores declarados.
-- [ ] **CORREGIR numeracion de REGLAS**
-- [ ] **Revisar lineas comentadas en JAVA CUP**
-- [ ] **Hacer que JAVA CUP chequee los ids declaradas y te alerte si el valor asignado NO coincide con su tipo.**
+- [X] **CORREGIR numeracion de REGLAS**
+- [ ] **Revisar lineas comentadas en JAVA CUP** --> AGREGAR IF-ELSE
+- [X] **Hacer que JAVA CUP chequee los ids declaradas y te alerte si el valor asignado NO coincide con su tipo.**
 - [X] Sentencias
 - [X] Lista_de_Sentencias
 

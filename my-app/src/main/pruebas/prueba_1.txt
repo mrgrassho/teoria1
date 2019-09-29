@@ -4,7 +4,7 @@ DECLARE.SECTION
   --/ Declaro variables /--
   INT : a, b , c; --/ Entero /--
   FLOAT : d, e; --/ Float /--
-  STRING : f, g, h, i; --/ String /--
+  STRING : j, g, h, i; --/ String /--
   BOOL : o, p; --/ Boolean /--
 ENDDECLARE.SECTION
 
@@ -12,8 +12,8 @@ PROGRAM.SECTION
 
 --/ Probamos asignaciones de variables /--
 a = 12;
-b = "HolaMundo";
-o = "PEPE";
+j = "HolaMundo";
+h = "PEPE";
 
 --/ Probamos IF /--
 

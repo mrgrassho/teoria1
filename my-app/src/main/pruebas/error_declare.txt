@@ -1,0 +1,15 @@
+--/ Prueba de Comentario /--
+
+DECLARE.SECTION
+  --/ Declaro variables /--
+  INT : a, b , c;
+  STRING : a, g, h, i; --/ Espera ERROR! 'a' ya se encuentra definida como INT /--
+  BOOL : o, p;
+ENDDECLARE.SECTION
+
+PROGRAM.SECTION
+
+--/ Probamos asignaciones de variables /--
+a = 12;
+
+ENDPROGRAM.SECTION
