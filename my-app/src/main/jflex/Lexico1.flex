@@ -1,4 +1,3 @@
-package compiler;
 
 import java.util.*;
 import java.io.BufferedWriter;
@@ -16,7 +15,7 @@ import java_cup.runtime.Symbol;
 %unicode
 %line
 %column
-%state COMMENTS_A, COMMENTS_B, DISPLAY
+%state DISPLAY
 %init{
   try {
     file = new File("../ts.txt");
@@ -50,9 +49,11 @@ LineTerminator = \r|\n|\r\n
 InputCharacter = [^\r\n]
 WhiteSpace     = {LineTerminator} | [ \t\f]
 
+Comentario   = "--/" [^*] ~"/--" | "--/" "/"+ "--"
+
 /* Comienzan las definiciones de */
 
-String = \"([a-zA-Z0-9\t\f\.\!\¡ñÑ]{0,30})\"
+String = \"([a-zA-Záéíóú0-9\t\f\.\!\¡ñÑ]{0,30})\"
 Integer = [1-9][0-9]* | 0
 Float = {Integer}\.[0-9]*
 Boolean = "true"|"false"
@@ -91,8 +92,8 @@ Funcion = {Display}";"
   "-"                           { System.out.printf("\n>>> Simbolo Resta: [%s] encontrado en linea %d, columna %d\n",yytext() , yyline, yycolumn);return new Symbol(sym.RESTA, yychar, yyline);}
   "/"                           { System.out.printf("\n>>> Simbolo Division: [%s] encontrado en linea %d, columna %d\n",yytext() , yyline, yycolumn);return new Symbol(sym.DIVISION, yychar, yyline);}
   "*"                           { System.out.printf("\n>>> Simbolo Multiplicacion: [%s] encontrado en linea %d, columna %d\n",yytext() , yyline, yycolumn);return new Symbol(sym.MULTIPLICAION, yychar, yyline);}
-  "%"                           { System.out.printf("\n>>> Simbolo Modulo: [%s] encontrado en linea %d, columna %d\n",yytext() , yyline, yycolumn);return new Symbol(sym.MODULO, yychar, yyline);}
-  "?"                           { System.out.printf("\n>>> Simbolo IF Unario: [%s] encontrado en linea %d, columna %d\n",yytext() , yyline, yycolumn);return new Symbol(sym.IF_UNARIO, yychar, yyline);}
+  /* "%"                           { System.out.printf("\n>>> Simbolo Modulo: [%s] encontrado en linea %d, columna %d\n",yytext() , yyline, yycolumn);return new Symbol(sym.MODULO, yychar, yyline);}*/
+  /* "?"                           { System.out.printf("\n>>> Simbolo IF Unario: [%s] encontrado en linea %d, columna %d\n",yytext() , yyline, yycolumn);return new Symbol(sym.IF_UNARIO, yychar, yyline);} */
   "DISPLAY"                     { System.out.printf("\n>>> Funcion encontrada en linea %d, columna %d\n", yyline, yycolumn);yybegin(DISPLAY);return new Symbol(sym.DISPLAY_FUNCTION, yychar, yyline);}
   "STRING"                      { System.out.printf("\n>>> Funcion consta en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.TYPE_STRING, yychar, yyline);}
   "INT"                         { System.out.printf("\n>>> Funcion encontrada en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.TYPE_INTEGER, yychar, yyline);}
@@ -101,7 +102,7 @@ Funcion = {Display}";"
 
   "while"                       { System.out.printf("\n>>> while en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.WHILE, yychar, yyline);}
   "if"                          { System.out.printf("\n>>> if en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.IF, yychar, yyline);}
-  "else"                        { System.out.printf("\n>>> else en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.ELSE, yychar, yyline);}
+  /* "else"                        { System.out.printf("\n>>> else en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.ELSE, yychar, yyline);} */
   "DECLARE.SECTION"             { System.out.printf("\n>>> DECLARE en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.DECLARE_SECTION, yychar, yyline);}
   "ENDDECLARE.SECTION"          { System.out.printf("\n>>> ENDDECLARE en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.ENDDECLARE_SECTION, yychar, yyline);}
   "PROGRAM.SECTION"             { System.out.printf("\n>>> PROGRAM en linea %d, columna %d\n", yyline, yycolumn); return new Symbol(sym.PROGRAM_SECTION, yychar, yyline);}
@@ -141,13 +142,9 @@ Funcion = {Display}";"
                                   return new Symbol(sym.ID, yychar, yyline);
                                 }
 
-  "--/"                         { yybegin(COMMENTS_A);}
+  {WhiteSpace}                  { /* Así ignora los espacios en blanco */ }
+  {Comentario}                  { /* Así ignora los comentarios */ }
 }
-
-<COMMENTS_A> {LineTerminator} { }
-<COMMENTS_A> "--/" { yybegin(COMMENTS_B);  }
-<COMMENTS_A> "/--" { yybegin(YYINITIAL);  }
-<COMMENTS_B> "/--" { yybegin(COMMENTS_A);  }
 
 <DISPLAY> {
   {Funcion}         { System.out.printf("\n>>> DISPLAY encontrado: [%s] en linea %d, columna %d\n", yytext(), yyline, yycolumn);yybegin(YYINITIAL);}

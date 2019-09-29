@@ -1,6 +1,7 @@
 --/ Asignaciónes y Operaciones /--
-a =  "ddasioinede";
-a =  "ddasiodddddddddedadadaedaeinede";
+asas = 12;
+a = "ddasioinede";
+b = "ddasiodddddddddedadadaedaeinede";
 aasds=23.3;
 ajjjj=dee+23;
 a=  true;

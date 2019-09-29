@@ -1,4 +1,3 @@
-package compiler;
 
 import java.util.*;
 import java.io.BufferedWriter;
@@ -6,7 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.Integer;
-import java_cup.runtime.Symbol;
+import java_cup.runtime.*;
 
 parser code
 {:
@@ -43,11 +42,12 @@ init with
 	}
 :};
 
-terminal DOS_PUNTOS,COMA,ASIGNACION,PUNTO_Y_COMA,IGUAL,DISTINTO,MAYOR,MENOR,MAYOR_IGUAL,MENOR_IGUAL,PARENTESIS_ABRE,PARENTESIS_CIERRA,LLAVES_ABRE,LLAVES_CIERRA,AND,OR,SUMA,RESTA,DIVISION,MULTIPLICAION,MODULO,IF_UNARIO,DISPLAY_FUNCTION,WHILE,IF,ELSE,DECLARE_SECTION,ENDDECLARE_SECTION,PROGRAM_SECTION,ENDPROGRAM_SECTION,TYPE_STRING,TYPE_INTEGER,TYPE_FLOAT,TYPE_BOOL;
+/* terminal ELSE, MODULO, IF_UNARIO;*/
+terminal DOS_PUNTOS,COMA,ASIGNACION,PUNTO_Y_COMA,IGUAL,DISTINTO,MAYOR,MENOR,MAYOR_IGUAL,MENOR_IGUAL,PARENTESIS_ABRE,PARENTESIS_CIERRA,LLAVES_ABRE,LLAVES_CIERRA,AND,OR,SUMA,RESTA,DIVISION,MULTIPLICAION,DISPLAY_FUNCTION,WHILE,IF,DECLARE_SECTION,ENDDECLARE_SECTION,PROGRAM_SECTION,ENDPROGRAM_SECTION,TYPE_STRING,TYPE_INTEGER,TYPE_FLOAT,TYPE_BOOL;
 terminal ID,CONST_STRING,CONST_INTEGER,CONST_FLOAT,CONST_BOOL;
 
 non terminal PROGRAM,DECLARE_SC,LISTA_SENTENCIAS,SENTENCIA;
-non terminal SENTENCIA_ASSIGN,SENTENCIA_IF,SENTENCIA_WHILE,SENTENCIA_DISPLAY, FACTOR_CONDICION, CONDICION;
+non terminal SENTENCIA_ASSIGN,SENTENCIA_IF,SENTENCIA_WHILE,SENTENCIA_DISPLAY, CONDICION;
 non terminal LISTA_DECLARE,DECLARACION,LISTA_IDS;
 non terminal EXPRESION,TERMINO,FACTOR;
 
@@ -76,10 +76,11 @@ SENTENCIA_ASSIGN ::= ID ASIGNACION EXPRESION {:System.out.println("sentencia id 
 									 | ID ASIGNACION CONST_BOOL {:System.out.println("sentencia id asigna const bool - Regla 11"); :};
 
 
-SENTENCIA_IF ::= IF CONDICION:c SENTENCIA:s {:System.out.println("if simple (solo una sentencia)  - Regla 12"); :}
-							 | IF CONDICION:c LLAVES_ABRE LISTA_SENTENCIAS:ls LLAVES_CIERRA {:System.out.println("if simple (lista de sentencias) - Regla 13"); :}
+SENTENCIA_IF ::= IF CONDICION:c SENTENCIA:s {:System.out.println("if simple (solo una sentencia)  - Regla 12"); :};
+
+/*							 | IF CONDICION:c LLAVES_ABRE LISTA_SENTENCIAS:ls LLAVES_CIERRA {:System.out.println("if simple (lista de sentencias) - Regla 13"); :}
 							 | IF CONDICION:c SENTENCIA:s ELSE SENTENCIA:s {:System.out.println("if + else (solo una sentencia) - Regla 14"); :}
-							 | IF CONDICION:c LLAVES_ABRE LISTA_SENTENCIAS:ls LLAVES_CIERRA ELSE LLAVES_ABRE LISTA_SENTENCIAS:ls LLAVES_CIERRA {:System.out.println("if + else (lista de sentencias) - Regla 15"); :};
+							 | IF CONDICION:c LLAVES_ABRE LISTA_SENTENCIAS:ls LLAVES_CIERRA ELSE LLAVES_ABRE LISTA_SENTENCIAS:ls LLAVES_CIERRA {:System.out.println("if + else (lista de sentencias) - Regla 15"); :};*/
 
 SENTENCIA_WHILE ::= WHILE CONDICION:c LLAVES_ABRE LISTA_SENTENCIAS:ls LLAVES_CIERRA {:System.out.println("while - Regla 16"); :};
 
@@ -107,14 +108,14 @@ CONDICION ::= PARENTESIS_ABRE CONDICION OR CONDICION PARENTESIS_CIERRA 	{:System
 						| PARENTESIS_ABRE CONST_STRING MENOR:op CONST_STRING PARENTESIS_CIERRA	{:System.out.println("Condicion mayor Regla 27"); :}
 						| PARENTESIS_ABRE CONST_STRING MAYOR_IGUAL:op CONST_STRING PARENTESIS_CIERRA	{:System.out.println("Condicion mayor Regla 27"); :}
 						| PARENTESIS_ABRE CONST_STRING MENOR_IGUAL:op CONST_STRING PARENTESIS_CIERRA	{:System.out.println("Condicion mayor Regla 27"); :}
-						| PARENTESIS_ABRE ID IGUAL:op CONST_STRING PARENTESIS_CIERRA	{:System.out.println("Condicion mayor Regla 27"); :}
-						| PARENTESIS_ABRE ID DISTINTO:op CONST_STRING PARENTESIS_CIERRA	{:System.out.println("Condicion mayor Regla 27"); :}
-						| PARENTESIS_ABRE ID IGUAL:op CONST_BOOL PARENTESIS_CIERRA	{:System.out.println("Condicion mayor Regla 27"); :}
-						| PARENTESIS_ABRE ID DISTINTO:op CONST_BOOL PARENTESIS_CIERRA	{:System.out.println("Condicion mayor Regla 27"); :}
-						| PARENTESIS_ABRE CONST_STRING IGUAL:op ID PARENTESIS_CIERRA	{:System.out.println("Condicion mayor Regla 27"); :}
-						| PARENTESIS_ABRE CONST_STRING DISTINTO:op ID PARENTESIS_CIERRA	{:System.out.println("Condicion mayor Regla 27"); :}
-						| PARENTESIS_ABRE CONST_BOOL IGUAL:op ID PARENTESIS_CIERRA	{:System.out.println("Condicion mayor Regla 27"); :}
-						| PARENTESIS_ABRE CONST_BOOL DISTINTO:op ID PARENTESIS_CIERRA	{:System.out.println("Condicion mayor Regla 27"); :}
+				//		| PARENTESIS_ABRE ID IGUAL:op CONST_STRING PARENTESIS_CIERRA	{:System.out.println("Condicion mayor Regla 27"); :}
+				//		| PARENTESIS_ABRE ID DISTINTO:op CONST_STRING PARENTESIS_CIERRA	{:System.out.println("Condicion mayor Regla 27"); :}
+				//		| PARENTESIS_ABRE ID IGUAL:op CONST_BOOL PARENTESIS_CIERRA	{:System.out.println("Condicion mayor Regla 27"); :}
+				//	| PARENTESIS_ABRE ID DISTINTO:op CONST_BOOL PARENTESIS_CIERRA	{:System.out.println("Condicion mayor Regla 27"); :}
+				//		| PARENTESIS_ABRE CONST_STRING IGUAL:op ID PARENTESIS_CIERRA	{:System.out.println("Condicion mayor Regla 27"); :}
+				//		| PARENTESIS_ABRE CONST_STRING DISTINTO:op ID PARENTESIS_CIERRA	{:System.out.println("Condicion mayor Regla 27"); :}
+				//		| PARENTESIS_ABRE CONST_BOOL IGUAL:op ID PARENTESIS_CIERRA	{:System.out.println("Condicion mayor Regla 27"); :}
+				//		| PARENTESIS_ABRE CONST_BOOL DISTINTO:op ID PARENTESIS_CIERRA	{:System.out.println("Condicion mayor Regla 27"); :}
 						| PARENTESIS_ABRE FACTOR IGUAL	FACTOR PARENTESIS_CIERRA	{:System.out.println("Condicion mayor Regla 27"); :}
 						| PARENTESIS_ABRE FACTOR DISTINTO	FACTOR PARENTESIS_CIERRA	{:System.out.println("Condicion mayor Regla 27"); :}
 						| PARENTESIS_ABRE FACTOR MAYOR	FACTOR PARENTESIS_CIERRA	{:System.out.println("Condicion mayor Regla 27"); :}

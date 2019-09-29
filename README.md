@@ -62,9 +62,9 @@ http://people.cs.aau.dk/~marius/sw/flex/Flex-Regular-Expressions.html
 
 2. Si usaste **maven**, copia el archivo a main/java:
 
-`cp target/generated-sources/jflex/compiler/Lexer.java src/main/cup/`
+`cp target/generated-sources/jflex/Lexer.java src/main/cup/`
 
-*1 y 2 en la misma linea* -> `mvn jflex:generate && cp target/generated-sources/jflex/compiler/Lexer.java src/main/cup/``
+*1 y 2 en la misma linea* -> `mvn jflex:generate && cp target/generated-sources/jflex/Lexer.java src/main/java/`
 
 3. Pararse en la carpeta `main/cup` y compilalo:
 ```
@@ -73,17 +73,15 @@ javac Lexer.java
 
 4. Ahora vamos a ejecutar el archivo `Sintactico.cup`:
 ```
-java -jar java-cup-11b.jar -expect 10 Sintactico.cup
+java -jar java-cup-11b.jar Sintactico.cup
 ```
-
-**NOTA:** EL archivo contiene warnings por eso es necesario pasarle el arg. `-expect`
 
 5. Ahora hay que compilar el Main:
 ```
-javac -cp java-cup-11b.jar Lexer.java parser.java sym.java Main.java
+javac -cp java-cup-11b.jar sym.java parser.java Lexer.java Main.java
 ```
 
 6. Ejecutar el Main:
 ```
-javac parser.java Main.java
+java -cp java-cup-11b-runtime.jar Main <nombre_archivo_pruebas>
 ```
