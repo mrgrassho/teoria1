@@ -30,6 +30,11 @@ if(i==aa) if(i==aa)a=true;
 if(i==aa) if(i==aa)a=true;
 
 if(i==a){a=true;}
+
 if(i==aa && i==aa){a=true;}
+
+--/ Probamos IF UNARIO /--
+
+var1 = ?(i==aa,aa*2,aa*0);
 
 ENDPROGRAM.SECTION
