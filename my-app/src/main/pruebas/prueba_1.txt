@@ -16,8 +16,11 @@ j = "HolaMundo";
 h = "PEPE";
 
 --/ Probamos IF /--
+var1 = ?((i==h),a*2,a*0);
+var2 = ?((i<h),a*2,a*0);
+var3 = ?((i>h),a*2,a*0);
 
-if(i==aa)a=true;
+if(i==aa)o=true;
 
 if(i==aa){a=true;else a=true;}
 

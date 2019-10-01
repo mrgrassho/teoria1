@@ -42,13 +42,7 @@ DISPLAY ss;
 
 if(i==aa)a=true;
 
-if(i==aa){a=true;else a=true;}
-
-if(i==aa) if(i==aa)a=true;
-
-if(i==aa)a=true;else  if(i==aa)a=true;
-
-if(i==aa) if(i==aa)a=true;
+if(i==aa){a=true; a=true;}
 
 if(i==aa) if(i==aa)a=true;
 

@@ -54,11 +54,11 @@ init with
 :};
 
 
-terminal DOS_PUNTOS,COMA,ASIGNACION,PUNTO_Y_COMA,SIGNO_PREGUNTA,ELSE, IGUAL,DISTINTO,MAYOR,MENOR,MAYOR_IGUAL,MENOR_IGUAL,PARENTESIS_ABRE,PARENTESIS_CIERRA,LLAVES_ABRE,LLAVES_CIERRA,AND,OR,SUMA,RESTA,DIVISION,MULTIPLICAION,DISPLAY_FUNCTION,WHILE,IF,DECLARE_SECTION,ENDDECLARE_SECTION,PROGRAM_SECTION,ENDPROGRAM_SECTION,TYPE_STRING,TYPE_INTEGER,TYPE_FLOAT,TYPE_BOOL;
+terminal DOS_PUNTOS,COMA,ASIGNACION,PUNTO_Y_COMA,SIGNO_PREGUNTA, IGUAL,DISTINTO,MAYOR,MENOR,MAYOR_IGUAL,MENOR_IGUAL,PARENTESIS_ABRE,PARENTESIS_CIERRA,LLAVES_ABRE,LLAVES_CIERRA,AND,OR,SUMA,RESTA,DIVISION,MULTIPLICAION,DISPLAY_FUNCTION,WHILE,IF,DECLARE_SECTION,ENDDECLARE_SECTION,PROGRAM_SECTION,ENDPROGRAM_SECTION,TYPE_STRING,TYPE_INTEGER,TYPE_FLOAT,TYPE_BOOL;
 terminal ID,CONST_STRING,CONST_INTEGER,CONST_FLOAT,CONST_BOOL;
 
 non terminal PROGRAM,DECLARE_SC,LISTA_SENTENCIAS,SENTENCIA;
-non terminal SENTENCIA_ASSIGN,SENTENCIA_IF,SENTENCIA_IF_UNARIO,SENTENCIA_WHILE,SENTENCIA_DISPLAY, CONDICION;
+non terminal SENTENCIA_ASSIGN,SENTENCIA_IF,IF_UNARIO,SENTENCIA_WHILE,SENTENCIA_DISPLAY, CONDICION;
 non terminal LISTA_DECLARE,DECLARACION,LISTA_IDS;
 non terminal EXPRESION,TERMINO,FACTOR;
 
@@ -74,7 +74,7 @@ LISTA_SENTENCIAS ::= LISTA_SENTENCIAS:ls SENTENCIA:s {:System.out.println("Sente
 SENTENCIA ::= SENTENCIA_ASSIGN PUNTO_Y_COMA {:System.out.println("Sentencia asignacion - Regla 3"); :}
             | SENTENCIA_IF 		  {:System.out.println("Sentencia if - Regla 4"); :}
             | SENTENCIA_WHILE	  {:System.out.println("Sentencia while - Regla 5"); :}
-            | SENTENCIA_DISPLAY PUNTO_Y_COMA {:System.out.println("Sentencia DISPLAY - Regla 6"); :};
+						| SENTENCIA_DISPLAY PUNTO_Y_COMA {:System.out.println("Sentencia DISPLAY - Regla 6"); :};
 
 SENTENCIA_ASSIGN ::= ID:id ASIGNACION EXPRESION
 											{:
@@ -82,36 +82,37 @@ SENTENCIA_ASSIGN ::= ID:id ASIGNACION EXPRESION
 												if ((type.equals("String")) || (type.equals("Bool"))) {
 													throw new RuntimeException("ERROR TIPOS - [" + id+"] esta definida como "+ type +", NO es posible asignar un Float");
 												}
-											  System.out.println("sentencia id asigna expresion - Regla 7");
+											  System.out.println("sentencia id asigna expresion - Regla 8");
 											:}
 									 | ID:id ASIGNACION CONST_STRING
 											{:
 											 String type = simbolos_tabla.get(id);
 											 if (!type.equals("String")) throw new RuntimeException("ERROR TIPOS - [" + id+"] esta definida como "+ type +", NO es posible asignar un STRING");
-											 System.out.println("sentencia id asigna constante string - Regla 8");
+											 System.out.println("sentencia id asigna constante string - Regla 9");
 											:}
 									 | ID:id ASIGNACION CONST_BOOL
 									 		{:
 												String type = simbolos_tabla.get(id);
  											  if (!type.equals("Bool")) throw new RuntimeException("ERROR TIPOS - [" + id+"] esta definida como "+ type +", NO es posible asignar un BOOL");
-											  System.out.println("sentencia id asigna const bool - Regla 9");
-											:};
+											  System.out.println("sentencia id asigna const bool - Regla 10");
+											:}
+									 | ID:id ASIGNACION IF_UNARIO
+ 									 		{:
+ 												System.out.println("sentencia id asigna IF unario  - Regla 11");
+ 											:};
 
-SENTENCIA_IF_UNARIO ::= ID:id ASIGNACION SIGNO_PREGUNTA PARENTESIS_ABRE CONDICION COMA EXPRESION COMA EXPRESION PARENTESIS_CIERRA PUNTO_Y_COMA  {:System.out.println("IF unario - Regla ??"); :};
 
-SENTENCIA_IF ::= IF CONDICION:c LLAVES_ABRE LISTA_SENTENCIAS:ls LLAVES_CIERRA {:System.out.println("if + else (lista de sentencias) - Regla 11"); :};
+SENTENCIA_IF ::= IF CONDICION:c LLAVES_ABRE LISTA_SENTENCIAS:ls LLAVES_CIERRA {:System.out.println("if (lista de sentencias) - Regla 12"); :}
+							 | IF CONDICION:c SENTENCIA:ls {:System.out.println("if (sentencia simple)- Regla 13"); :};
 
-//ELSE LLAVES_ABRE SENTENCIA:ls LLAVES_CIERRA {:System.out.println("if + else (lista de sentencias) - Regla 11"); :};
 
-/*						 | IF CONDICION:c LLAVES_ABRE LISTA_SENTENCIAS:ls LLAVES_CIERRA {:System.out.println("if simple (lista de sentencias) - Regla 13"); :}
-							 | IF CONDICION:c SENTENCIA:s ELSE SENTENCIA:s {:System.out.println("if + else (solo una sentencia) - Regla 14"); :}
-							 | IF CONDICION:c LLAVES_ABRE LISTA_SENTENCIAS:ls LLAVES_CIERRA ELSE LLAVES_ABRE LISTA_SENTENCIAS:ls LLAVES_CIERRA {:System.out.println("if + else (lista de sentencias) - Regla 15"); :};*/
+SENTENCIA_WHILE ::= WHILE CONDICION:c LLAVES_ABRE LISTA_SENTENCIAS:ls LLAVES_CIERRA {:System.out.println("while - Regla 43"); :};
 
-SENTENCIA_WHILE ::= WHILE CONDICION:c LLAVES_ABRE LISTA_SENTENCIAS:ls LLAVES_CIERRA {:System.out.println("while - Regla 12"); :};
+SENTENCIA_DISPLAY ::= DISPLAY_FUNCTION CONST_STRING:cs {:System.out.println("DISPLAY_FUNCTION - Regla 44"); :};
 
-SENTENCIA_DISPLAY ::= DISPLAY_FUNCTION CONST_STRING:cs {:System.out.println("DISPLAY_FUNCTION - Regla 13"); :};
+IF_UNARIO ::= SIGNO_PREGUNTA PARENTESIS_ABRE CONDICION COMA EXPRESION COMA EXPRESION PARENTESIS_CIERRA  {:System.out.println("IF unario - Regla 45"); :};
 
-DECLARE_SC ::= DECLARE_SECTION LISTA_DECLARE:l ENDDECLARE_SECTION {:System.out.println("decvar Regla 14"); :};
+DECLARE_SC ::= DECLARE_SECTION LISTA_DECLARE:l ENDDECLARE_SECTION {:System.out.println("decvar Regla 46"); :};
 
 LISTA_DECLARE ::= LISTA_DECLARE:ls DECLARACION:s {:System.out.println("Lista Declare - Regla 14"); :}
                 | DECLARACION:s {:System.out.println("Declaracion simple - Regla 15"); :};
@@ -129,22 +130,22 @@ CONDICION ::= PARENTESIS_ABRE CONDICION OR CONDICION PARENTESIS_CIERRA 	{:System
 						| PARENTESIS_ABRE CONDICION AND CONDICION PARENTESIS_CIERRA 		{:System.out.println("Condicion OR Condicion -  Regla 23"); :}
 						| PARENTESIS_ABRE CONST_STRING IGUAL:op CONST_STRING PARENTESIS_CIERRA	{:System.out.println("Condicion CONST_STRING IGUAL:op CONST_STRING Regla 24"); :}
 						| PARENTESIS_ABRE CONST_STRING DISTINTO:op CONST_STRING PARENTESIS_CIERRA	{:System.out.println("Condicion CONST_STRING IGUA CONST_STRING Regla 25"); :}
-						| PARENTESIS_ABRE FACTOR IGUAL	FACTOR PARENTESIS_CIERRA	{:System.out.println("Condicion FACTOR igual FACTOR - Regla 26"); :}
+						| PARENTESIS_ABRE FACTOR IGUAL FACTOR PARENTESIS_CIERRA	{:System.out.println("Condicion FACTOR igual FACTOR - Regla 26"); :}
 						| PARENTESIS_ABRE FACTOR DISTINTO	FACTOR PARENTESIS_CIERRA	{:System.out.println("Condicion FACTOR DISTINTO FACTOR - Regla 27"); :}
-						| PARENTESIS_ABRE FACTOR MAYOR	FACTOR PARENTESIS_CIERRA	{:System.out.println("Condicion FACTOR mayor FACTOR - Regla 28"); :}
-						| PARENTESIS_ABRE FACTOR MENOR	FACTOR PARENTESIS_CIERRA	{:System.out.println("Condicion FACTOR menor FACTOR - Regla 29"); :}
+						| PARENTESIS_ABRE FACTOR MAYOR FACTOR PARENTESIS_CIERRA	{:System.out.println("Condicion FACTOR mayor FACTOR - Regla 28"); :}
+						| PARENTESIS_ABRE FACTOR MENOR FACTOR PARENTESIS_CIERRA	{:System.out.println("Condicion FACTOR menor FACTOR - Regla 29"); :}
 						| PARENTESIS_ABRE FACTOR MAYOR_IGUAL	FACTOR PARENTESIS_CIERRA	{:System.out.println("Condicion FACTOR mayor igual FACTOR  - Regla 30"); :}
 						| PARENTESIS_ABRE FACTOR MENOR_IGUAL	FACTOR PARENTESIS_CIERRA	{:System.out.println("Condicion FACTOR menor igual FACTOR - Regla 31"); :}
-						| PARENTESIS_ABRE CONST_BOOL IGUAL	CONST_BOOL PARENTESIS_CIERRA	{:System.out.println("Condicion CONST_BOOL igual CONST_BOOL - Regla 31"); :};
+						| PARENTESIS_ABRE CONST_BOOL IGUAL	CONST_BOOL PARENTESIS_CIERRA	{:System.out.println("Condicion CONST_BOOL igual CONST_BOOL - Regla 32"); :};
 
 
-EXPRESION ::= EXPRESION:a SUMA TERMINO:b {: System.out.println("E+T - Regla 33");RESULT=(Float)a+(Float)b; :}
-						| EXPRESION:a RESTA TERMINO:b  {:System.out.println("E-T - Regla 34");RESULT=(Float)a-(Float)b;:}
+EXPRESION ::= EXPRESION:a SUMA TERMINO:b {: System.out.println("E+T - Regla 33"); :}
+						| EXPRESION:a RESTA TERMINO:b  {:System.out.println("E-T - Regla 34");:}
 						| TERMINO:a  {:System.out.println("Termino Regla 35");RESULT=a;:};
 
 
-TERMINO ::= TERMINO:a MULTIPLICAION FACTOR:b {: System.out.println("T*F - Regla 36");RESULT=(Float)a*(Float)b;:}
-					| TERMINO:a DIVISION FACTOR:b {: System.out.println("T/F - Regla 37");RESULT=(Float)a/(Float)b;:}
+TERMINO ::= TERMINO:a MULTIPLICAION FACTOR:b {: System.out.println("T*F - Regla 36");:}
+					| TERMINO:a DIVISION FACTOR:b {: System.out.println("T/F - Regla 37");:}
 					| FACTOR:a {:System.out.println("Factor - Regla 38");RESULT=a;:};
 
 

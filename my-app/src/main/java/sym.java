@@ -6,46 +6,45 @@
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int EOF = 0;
-  public static final int error = 1;
-  public static final int DOS_PUNTOS = 2;
-  public static final int COMA = 3;
-  public static final int ASIGNACION = 4;
-  public static final int PUNTO_Y_COMA = 5;
-  public static final int ELSE = 6;
-  public static final int IGUAL = 7;
+  public static final int ENDDECLARE_SECTION = 27;
   public static final int DISTINTO = 8;
-  public static final int MAYOR = 9;
-  public static final int MENOR = 10;
-  public static final int MAYOR_IGUAL = 11;
-  public static final int MENOR_IGUAL = 12;
-  public static final int PARENTESIS_ABRE = 13;
+  public static final int PUNTO_Y_COMA = 5;
   public static final int PARENTESIS_CIERRA = 14;
-  public static final int LLAVES_ABRE = 15;
-  public static final int LLAVES_CIERRA = 16;
+  public static final int RESTA = 20;
+  public static final int DOS_PUNTOS = 2;
+  public static final int CONST_INTEGER = 36;
   public static final int AND = 17;
+  public static final int IGUAL = 7;
+  public static final int SIGNO_PREGUNTA = 6;
   public static final int OR = 18;
   public static final int SUMA = 19;
-  public static final int RESTA = 20;
-  public static final int DIVISION = 21;
-  public static final int MULTIPLICAION = 22;
-  public static final int DISPLAY_FUNCTION = 23;
-  public static final int WHILE = 24;
+  public static final int CONST_FLOAT = 37;
   public static final int IF = 25;
-  public static final int DECLARE_SECTION = 26;
-  public static final int ENDDECLARE_SECTION = 27;
+  public static final int ID = 34;
+  public static final int EOF = 0;
+  public static final int error = 1;
+  public static final int COMA = 3;
+  public static final int LLAVES_CIERRA = 16;
+  public static final int MENOR = 10;
+  public static final int CONST_BOOL = 38;
+  public static final int TYPE_FLOAT = 32;
+  public static final int ASIGNACION = 4;
+  public static final int MAYOR = 9;
+  public static final int TYPE_INTEGER = 31;
+  public static final int TYPE_STRING = 30;
+  public static final int WHILE = 24;
+  public static final int MAYOR_IGUAL = 11;
+  public static final int CONST_STRING = 35;
   public static final int PROGRAM_SECTION = 28;
   public static final int ENDPROGRAM_SECTION = 29;
-  public static final int TYPE_STRING = 30;
-  public static final int TYPE_INTEGER = 31;
-  public static final int TYPE_FLOAT = 32;
+  public static final int MENOR_IGUAL = 12;
   public static final int TYPE_BOOL = 33;
-  public static final int ID = 34;
-  public static final int CONST_STRING = 35;
-  public static final int CONST_INTEGER = 36;
-  public static final int CONST_FLOAT = 37;
-  public static final int CONST_BOOL = 38;
-  public static final int SIGNO_PREGUNTA = 39;
+  public static final int DISPLAY_FUNCTION = 23;
+  public static final int DIVISION = 21;
+  public static final int MULTIPLICAION = 22;
+  public static final int PARENTESIS_ABRE = 13;
+  public static final int LLAVES_ABRE = 15;
+  public static final int DECLARE_SECTION = 26;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -53,7 +52,7 @@ public class sym {
   "COMA",
   "ASIGNACION",
   "PUNTO_Y_COMA",
-  "ELSE",
+  "SIGNO_PREGUNTA",
   "IGUAL",
   "DISTINTO",
   "MAYOR",
@@ -85,8 +84,7 @@ public class sym {
   "CONST_STRING",
   "CONST_INTEGER",
   "CONST_FLOAT",
-  "CONST_BOOL",
-  "SIGNO_PREGUNTA"
+  "CONST_BOOL"
   };
 }
 
