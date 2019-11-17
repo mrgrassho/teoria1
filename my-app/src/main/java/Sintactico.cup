@@ -128,30 +128,31 @@ LISTA_IDS ::= LISTA_IDS COMA ID:id {: elements.add((String)id); System.out.print
 
 CONDICION_LOGICA ::=  PARENTESIS_ABRE CONDICION_SIMPLE OR CONDICION_SIMPLE  PARENTESIS_CIERRA 	{:System.out.println("Condicion AND Condicion -  Regla 22"); :}
 						| PARENTESIS_ABRE CONDICION_SIMPLE AND CONDICION_SIMPLE  PARENTESIS_CIERRA 		{:System.out.println("Condicion OR Condicion -  Regla 23"); :}
-						| CONDICION_SIMPLE
+						| CONDICION_SIMPLE {:System.out.println("CONDICION_SIMPLE -  Regla 24"); :};
 
-CONDICION_SIMPLE ::= PARENTESIS_ABRE CONST_STRING IGUAL:op CONST_STRING PARENTESIS_CIERRA	{:System.out.println("Condicion CONST_STRING IGUAL:op CONST_STRING Regla 24"); :}
-						| PARENTESIS_ABRE CONST_STRING DISTINTO:op CONST_STRING PARENTESIS_CIERRA	{:System.out.println("Condicion CONST_STRING IGUA CONST_STRING Regla 25"); :}
-						| PARENTESIS_ABRE FACTOR IGUAL FACTOR PARENTESIS_CIERRA	{:System.out.println("Condicion FACTOR igual FACTOR - Regla 26"); :}
-						| PARENTESIS_ABRE FACTOR DISTINTO	FACTOR PARENTESIS_CIERRA	{:System.out.println("Condicion FACTOR DISTINTO FACTOR - Regla 27"); :}
-						| PARENTESIS_ABRE FACTOR MAYOR FACTOR PARENTESIS_CIERRA	{:System.out.println("Condicion FACTOR mayor FACTOR - Regla 28"); :}
-						| PARENTESIS_ABRE FACTOR MENOR FACTOR PARENTESIS_CIERRA	{:System.out.println("Condicion FACTOR menor FACTOR - Regla 29"); :}
-						| PARENTESIS_ABRE FACTOR MAYOR_IGUAL	FACTOR PARENTESIS_CIERRA	{:System.out.println("Condicion FACTOR mayor igual FACTOR  - Regla 30"); :}
-						| PARENTESIS_ABRE FACTOR MENOR_IGUAL	FACTOR PARENTESIS_CIERRA	{:System.out.println("Condicion FACTOR menor igual FACTOR - Regla 31"); :}
-						| PARENTESIS_ABRE CONST_BOOL IGUAL	CONST_BOOL PARENTESIS_CIERRA	{:System.out.println("Condicion CONST_BOOL igual CONST_BOOL - Regla 32"); :};
-
-
-EXPRESION ::= EXPRESION:a SUMA TERMINO:b {: System.out.println("E+T - Regla 33"); :}
-						| EXPRESION:a RESTA TERMINO:b  {:System.out.println("E-T - Regla 34");:}
-						| TERMINO:a  {:System.out.println("Termino Regla 35");RESULT=a;:};
+CONDICION_SIMPLE ::= PARENTESIS_ABRE CONST_STRING IGUAL:op CONST_STRING PARENTESIS_CIERRA	{:System.out.println("Condicion CONST_STRING IGUAL:op CONST_STRING Regla 25"); :}
+						| PARENTESIS_ABRE CONST_STRING DISTINTO:op CONST_STRING PARENTESIS_CIERRA	{:System.out.println("Condicion CONST_STRING DISTINTO CONST_STRING Regla 26"); :}
+						| PARENTESIS_ABRE FACTOR IGUAL FACTOR PARENTESIS_CIERRA	{:System.out.println("Condicion FACTOR igual FACTOR - Regla 27"); :}
+						| PARENTESIS_ABRE FACTOR DISTINTO	FACTOR PARENTESIS_CIERRA	{:System.out.println("Condicion FACTOR DISTINTO FACTOR - Regla 28"); :}
+						| PARENTESIS_ABRE FACTOR MAYOR FACTOR PARENTESIS_CIERRA	{:System.out.println("Condicion FACTOR mayor FACTOR - Regla 29"); :}
+						| PARENTESIS_ABRE FACTOR MENOR FACTOR PARENTESIS_CIERRA	{:System.out.println("Condicion FACTOR menor FACTOR - Regla 30"); :}
+						| PARENTESIS_ABRE FACTOR MAYOR_IGUAL	FACTOR PARENTESIS_CIERRA	{:System.out.println("Condicion FACTOR mayor igual FACTOR  - Regla 31"); :}
+						| PARENTESIS_ABRE FACTOR MENOR_IGUAL	FACTOR PARENTESIS_CIERRA	{:System.out.println("Condicion FACTOR menor igual FACTOR - Regla 32"); :}
+						| PARENTESIS_ABRE CONST_BOOL IGUAL	CONST_BOOL PARENTESIS_CIERRA	{:System.out.println("Condicion CONST_BOOL igual CONST_BOOL - Regla 33"); :};
 
 
-TERMINO ::= TERMINO:a MULTIPLICAION FACTOR:b {: System.out.println("T*F - Regla 36");:}
-					| TERMINO:a DIVISION FACTOR:b {: System.out.println("T/F - Regla 37");:}
-					| FACTOR:a {:System.out.println("Factor - Regla 38");RESULT=a;:};
+EXPRESION ::= EXPRESION:a SUMA TERMINO:b {: System.out.println("E+T - Regla 34"); :}
+						| EXPRESION:a RESTA TERMINO:b  {:System.out.println("E-T - Regla 35");:}
+						| TERMINO:a  {:System.out.println("Termino Regla 36");RESULT=a;:};
 
 
-FACTOR ::= ID {:System.out.println("Factor ID - Regla 39");:}
-				 | CONST_INTEGER {:System.out.println("Factor CONST_INT - Regla 40");:}
-				 | CONST_FLOAT {:System.out.println("Factor CONST_FLOAT - Regla 41");:}
-				 | PARENTESIS_ABRE EXPRESION:e PARENTESIS_CIERRA {:System.out.println("Factor Regla 42");:};
+TERMINO ::= TERMINO:a MULTIPLICAION FACTOR:b {: System.out.println("T*F - Regla 37");:}
+					| TERMINO:a DIVISION FACTOR:b {: System.out.println("T/F - Regla 38");:}
+					| FACTOR:a {:System.out.println("Factor - Regla 39");RESULT=a;:};
+
+
+FACTOR ::= ID {:System.out.println("Factor ID - Regla 40");:}
+				 | CONST_INTEGER {:System.out.println("Factor CONST_INT - Regla 41");:}
+				 | CONST_FLOAT {:System.out.println("Factor CONST_FLOAT - Regla 42");:}
+				 | PARENTESIS_ABRE EXPRESION:e PARENTESIS_CIERRA {:System.out.println("Factor Regla 43");:};
+
